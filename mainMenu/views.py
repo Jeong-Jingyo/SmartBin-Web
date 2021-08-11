@@ -32,5 +32,15 @@ def feedback(request):
 
 
 def camera_feed(request):
-    with open("mainMenu/assets/cameraFeed.mp4", "rb") as file:
+    with open("mainMenu/assets/camDemo.mp4", "rb") as file:
         return HttpResponse(file.read(), content_type="video/mp4")
+
+
+def tutorial(request):
+    with open("mainMenu/assets/tutorial.html") as file:
+        return HttpResponse(file.read())
+
+
+def tuto_video(request):
+    with open("mainMenu/assets/tutorial.mp4", "rb") as file:
+        return HttpResponse(file.read(), content_type="video/avi")
