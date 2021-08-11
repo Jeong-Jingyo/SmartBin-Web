@@ -24,3 +24,13 @@ def stat(request):
     plt.savefig(b, format='jpg')
     b.seek(0)
     return HttpResponse(b.read(), content_type="text/image")
+
+
+def feedback(request):
+    with open("mainMenu/assets/feedback.html") as file:
+        return HttpResponse(file.read())
+
+
+def camera_feed(request):
+    with open("mainMenu/assets/cameraFeed.mp4", "rb") as file:
+        return HttpResponse(file.read(), content_type="video/mp4")
