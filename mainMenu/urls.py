@@ -8,5 +8,5 @@ urlpatterns = [
     path("feedback", views.feedback, name="feedback"),
     path("camFeed", views.camera_feed, name="camFeed"),
     path("tutorial", views.tutorial, name="tutorial"),
-    path("tutoVideo", views.tuto_video, name="tutoVideo")
+    path("tutorial.mp4", views.tuto_video, name="tutoVideo")
 ]

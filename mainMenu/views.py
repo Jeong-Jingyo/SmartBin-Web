@@ -12,7 +12,7 @@ def index(request):
 
 
 def js(request):
-    with open("mainMenu/assets/main.js") as file:
+    with open("mainMenu/assets/door.js") as file:
         return HttpResponse(file.read(), content_type='text/javascript')
 
 

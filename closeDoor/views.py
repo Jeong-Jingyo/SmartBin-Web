@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from .serializers import DoorSerializer
 from .models import Door
+import json
 import importlib
 sys.path.append("/home/sqidward/dev/SmartBin")
 HW = importlib.import_module("SmartBin-HardWare")
@@ -20,3 +21,10 @@ class DoorView(APIView):
         if serializer.is_valid():
             HW.door(serializer.data["open"])
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+class DoorClosedView(APIView):
+    def get(self, request):
+        body = {}
+        body["closed"] = HW.door_closed()
+        return Response(json.dumps(body), status=200, content_type="text/json")

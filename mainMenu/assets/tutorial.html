@@ -3,10 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <title>Title</title>
+  <style>
+    .button {
+        font-size: 50px;
+        text-align: center;
+        background: red;
+        border-radius: 10px;
+        box-shadow: 0 10px 30px grey;
+        margin: 20px;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        color: white;
+    }
+    #closeButton {
+        position: absolute;
+        top: 60%;
+        left: 80%;
+        width: 15vw;
+        height: 20vh;
+        line-height: 20vh;
+    }
+  </style>
 </head>
 <body>
 <span style="text-align: center; display: block;">
-<video muted autoplay loop src="/tutoVideo" id="playback" style="width: 90vw; height: 95vh;"></video>
+<video muted autoplay loop src="tutorial.mp4" id="playback" style="width: 90vw; height: 95vh;"></video>
 </span>
+<div class="button" id="closeButton">정지</div>
 </body>
 </html>
