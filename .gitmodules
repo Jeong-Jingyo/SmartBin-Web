@@ -1,0 +1,3 @@
+[submodule "SmartBin-Hardware"]
+	path = SmartBin-Hardware
+	url = https://github.com/Jeong-Jingyo/SmartBin-Hardware
