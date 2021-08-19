@@ -12,7 +12,7 @@ def index(request):
 
 
 def js(request):
-    with open("mainMenu/assets/door.js") as file:
+    with open("mainMenu/assets/mainMenu.js") as file:
         return HttpResponse(file.read(), content_type='text/javascript')
 
 
@@ -24,16 +24,6 @@ def stat(request):
     plt.savefig(b, format='jpg')
     b.seek(0)
     return HttpResponse(b.read(), content_type="text/image")
-
-
-def feedback(request):
-    with open("mainMenu/assets/feedback.html") as file:
-        return HttpResponse(file.read())
-
-
-def camera_feed(request):
-    with open("mainMenu/assets/camDemo.mp4", "rb") as file:
-        return HttpResponse(file.read(), content_type="video/mp4")
 
 
 def tutorial(request):
