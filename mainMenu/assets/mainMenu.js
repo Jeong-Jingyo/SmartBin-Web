@@ -15,5 +15,18 @@ const lockDoor = async() => {
         body: JSON.stringify(body),
         headers: {'Content-Type': 'application/json'}
     });
-    window.location.href = '/tutorial'
+    var res_json = await response.json()
+    res_json = JSON.parse(res_json)
+    await console.log(res_json)
+    await redirect(res_json)
+}
+
+function redirect(response) {
+    console.log(response)
+    console.log(response["Result"])
+    if (response["Result"] == "tutorial") {
+        window.location.href = "/tutorial"
+    } else if (response["Result"] == "feedback") {
+        window.location.href = "/feedback?ID=" + String(response["ID"])
+    }
 }
