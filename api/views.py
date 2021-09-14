@@ -51,9 +51,9 @@ class DoorView(APIView):
             if not HW.door_closed():
                 with open("time.txt", "r") as file:
                     if (time.time() - float(file.read())) > 15:
-                        return HttpResponse({"Result": "kicked"})
+                        return HttpResponse(json.dumps({"Result": "kicked"}))
                     else:
-                        return HttpResponse({"Result": "waiting"})
+                        return HttpResponse(json.dumps({"Result": "waiting"}))
             else:
                 image = capture()
                 encoded_image = cv2.imencode(".jpg", image)[1]
