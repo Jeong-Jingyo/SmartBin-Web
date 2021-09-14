@@ -38,21 +38,22 @@ def capture():
 
 # Create your views here.
 class DoorView(APIView):
-    started_time = None
-
     def post(self, request):
-        self.started_time = time.time()
+        with open("time.txt", "w") as file:
+            file.write(str(time.time()))
         return HttpResponse("started", status=201)
 
     def get(self, request):
         serializer = DoorSerializer(data=request.data)
-        if serializer.is_valid():
+        if serializer.is_valid() or not serializer.is_valid():
             HW.open_door()
+            print(f"door stat: {HW.door_closed()}")
             if not HW.door_closed():
-                if (time.time() - self.started_time) > 15:
-                    return HttpResponse({"Result": "kicked"})
-                else: 
-                    return HttpResponse({"Result": "waiting"})
+                with open("time.txt", "r") as file:
+                    if (time.time() - float(file.read())) > 15:
+                        return HttpResponse({"Result": "kicked"})
+                    else:
+                        return HttpResponse({"Result": "waiting"})
             else:
                 image = capture()
                 encoded_image = cv2.imencode(".jpg", image)[1]
