@@ -1,8 +1,7 @@
 let button = document.getElementById("OpenButton");
 let message = document.getElementById("message");
 
-button.onclick = requestDoor()
-ss
+
 function sleep(ms) {
   const wakeUpTime = Date.now() + ms;
   while (Date.now() < wakeUpTime) {}
