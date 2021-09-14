@@ -9,6 +9,8 @@ function sleep(ms) {
 
 const requestDoor = async () => {
     const response = await fetch('api/door', {
+        method: 'POST',
+        body:JSON.stringify({"open": true})
     });
     setTimeout(async () => {
         const resp = await fetch('api/door', {
