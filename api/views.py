@@ -39,9 +39,10 @@ def capture():
 # Create your views here.
 class DoorView(APIView):
     started_time = None
+
     def post(self, request):
         self.started_time = time.time()
-        return Response("started", status=201)
+        return HttpResponse("started", status=201)
 
     def get(self, request):
         serializer = DoorSerializer(data=request.data)
@@ -84,7 +85,7 @@ class DoorView(APIView):
                     file.write(buffer.read())
 
                 if float(response["trashType"][max_class]) <= 0.8:
-                    return Response(json.dumps({"ID": trash_q.id, "Result": "feedback"}))
+                    return HttpResponse(json.dumps({"Result": "feedback", "ID": trash_q.id}))
                 else:
                     if not bool(foreign_subst):
                         HWMap[max_class]()
@@ -92,7 +93,7 @@ class DoorView(APIView):
                         HWMap["pet-re"]()
                     elif max_class == "glass":
                         HWMap["glass-re"]()
-                    return Response(json.dumps({"Result": "tutorial", "ID": trash_q.id}))
+                    return HttpResponse(json.dumps({"Result": "tutorial", "ID": trash_q.id}))
 
 
 class DoorClosedView(APIView):
