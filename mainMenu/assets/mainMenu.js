@@ -16,7 +16,7 @@ const requestDoor = async () => {
         const resp = await fetch('api/door', {
             method: 'GET',
         });
-        let response = await response.json();
+        let response = await resp.json();
         redirect(response);
     }, 1000);
 }
