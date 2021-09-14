@@ -40,7 +40,7 @@ def capture():
 class DoorView(APIView):
     started_time = None
     def post(self, request):
-        self.started_time = time.time
+        self.started_time = time.time()
         return Response("started", status=201)
 
     def get(self, request):
@@ -48,7 +48,7 @@ class DoorView(APIView):
         if serializer.is_valid():
             HW.open_door()
             if not HW.door_closed():
-                if time.time - self.started_time > 15:
+                if (time.time() - self.started_time) > 15:
                     return HttpResponse({"Result": "kicked"})
                 else: 
                     return HttpResponse({"Result": "waiting"})

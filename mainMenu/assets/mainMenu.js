@@ -8,15 +8,14 @@ function sleep(ms) {
   while (Date.now() < wakeUpTime) {}
 }
 
-function requestDoor() {
-    console.log(JSON.stringify(body))
+const requestDoor = async () => {
     const response = await fetch('api/door', {
     });
-    setTimeout(() => {
-        const response = await fetch('api/door', {
+    setTimeout(async () => {
+        const resp = await fetch('api/door', {
             method: 'GET',
         });
-        response = await response.json();
+        let response = await response.json();
         redirect(response);
     }, 1000);
 }
