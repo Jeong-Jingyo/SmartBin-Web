@@ -12,6 +12,9 @@ def index(request):
     with open("mainMenu/assets/index.html", encoding='utf-8') as file:
         return HttpResponse(file.read())
 
+def main(request):
+    with open("mainMenu/assets/main.html", encoding='utf-8') as file:
+        return HttpResponse(file.read())
 
 def js(request):
     with open("mainMenu/assets/mainMenu.js", encoding='utf-8') as file:

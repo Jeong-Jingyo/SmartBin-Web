@@ -1,5 +1,6 @@
 import sys
 import os
+from django.http.response import HttpResponse
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from .serializers import *
@@ -11,11 +12,11 @@ import json
 import importlib
 import io
 import asyncio
+import time
 
 sys.path.append("C:\\Users\\sqidw\\dev\\SmartBin\\SmartBin-Web\\SmartBin")
 HWLib = importlib.import_module("SmartBin-Hardware")
 HW = HWLib.Serial()
-# asyncio.run(HW.get_stat)
 HWMap = {
     "pet": HW.bin1,
     "pet-re": HW.bin2,
@@ -37,14 +38,21 @@ def capture():
 
 # Create your views here.
 class DoorView(APIView):
-    def get(self, request):
-        return Response("ok", status=200)
-
+    started_time = None
     def post(self, request):
+        self.started_time = time.time
+        return Response("started", status=201)
+
+    def get(self, request):
         serializer = DoorSerializer(data=request.data)
         if serializer.is_valid():
-            HW.door()
-            if HW.is_closed():
+            HW.open_door()
+            if not HW.door_closed():
+                if time.time - self.started_time > 15:
+                    return HttpResponse({"Result": "kicked"})
+                else: 
+                    return HttpResponse({"Result": "waiting"})
+            else:
                 image = capture()
                 encoded_image = cv2.imencode(".jpg", image)[1]
 
@@ -52,6 +60,7 @@ class DoorView(APIView):
 
                 response = requests.post(usr_cfg.Backend_URL + '/ai', files={"file": buffer})
                 response = response.json()
+                print(response)
                 max_class = max(response["trashType"], key=response["trashType"].get)
 
                 foreign_subst = list()
@@ -66,7 +75,7 @@ class DoorView(APIView):
                                 foreign_subst_probability=",".join(foreign_subst_probability),
                                 feedback_type="",
                                 )
-                trash_q.save()
+                trash_q.save()      
                 img_dir = os.path.abspath("data/TrashImages/" + str(trash_q.id) + ".jpg")
                 cv2.imwrite("data/TrashImages/" + str(trash_q.id) + ".jpg", image)
                 trash_q.image = img_dir
@@ -83,7 +92,7 @@ class DoorView(APIView):
                         HWMap["pet-re"]()
                     elif max_class == "glass":
                         HWMap["glass-re"]()
-                    return Response(json.dumps({"ID": trash_q.id, "Result": "tutorial"}))
+                    return Response(json.dumps({"Result": "tutorial", "ID": trash_q.id}))
 
 
 class DoorClosedView(APIView):

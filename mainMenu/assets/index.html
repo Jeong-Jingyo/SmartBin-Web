@@ -1,57 +1,9 @@
-<!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-  <style>
-      .container {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-      }
-
-      .container > * {
-          margin: auto;
-      }
-
-      #OpenButton {
-          width: 20vw;
-          margin-right: 10vw;
-          margin-left: 10vw;
-          height: 30vh;
-          line-height: 30vh;
-          border-radius: 25%;
-          background: dodgerblue;
-          color: white;
-          text-align: center;
-          font-size: 100px;
-          box-shadow: 0 10px 30px grey;
-          cursor: pointer;
-          user-select: none;
-      }
-
-      #OpenButton:active {
-          -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-          box-shadow: none;
-      }
-
-      #StatGraph {
-          width: 40vw;
-      }
-  </style>
+    <meta charset="UTF-8">
+    <title>Document</title>
 </head>
-
-<body style="overflow: hidden;">
-<div class="container">
-  <img id="StatGraph" src="stat.jpg" alt="버린 쓰레기의 통계">
-  <div id="OpenButton" class="button" onclick=lockDoor()>닫기</div>
-</div>
-<!--<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js" type="module"></script>-->
-<script src="main.js" type="text/javascript"></script>
+<body>
+    <iframe src="/main"></iframe>
 </body>
-
 </html>
